@@ -10,6 +10,8 @@ function createRandomPost() {
 //CREATE A CONTEXT
 const PostContext = createContext();
 
+
+
 function App() {
   const [posts, setPosts] = useState(() =>
     Array.from({ length: 30 }, () => createRandomPost())
@@ -49,16 +51,13 @@ function App() {
         onAddPost: handleAddPost,
         onClearPosts: handleClearPosts,
         searchQuery: searchQuery,
-        setSearchQuery,       
+        setSearchQuery,
+        isFakeDark,
+        setIsFakeDark,
       }}
     >
       <section>
-        <button
-          onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
-          className="btn-fake-dark-mode"
-        >
-          {isFakeDark ? "☀️" : "🌙"}
-        </button>
+        <Button />
         <Header />
         <Main />
         <Archive />
@@ -68,7 +67,17 @@ function App() {
   );
 }
 
-
+function Button() {
+  const { isFakeDark, setIsFakeDark } = useContext(PostContext);
+  return (
+    <button
+      onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
+      className="btn-fake-dark-mode"
+    >
+      {isFakeDark ? "☀️" : "🌙"}
+    </button>
+  );
+}
 
 function Header() {
   //CONSUMING CONTEXT VALUE
